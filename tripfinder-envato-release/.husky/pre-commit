@@ -1,0 +1,35 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo '🏗️👷 Styling, testing and building your project before committing'
+
+# Check ESLint & Prettier Format Standards
+yarn lint:boat || (
+  echo '😤🏀👋😤 Get that weak code out of here! 😤🏀👋😤
+    ESLint Check Failed. Make the required changes listed above and try to commit again.'
+  false;
+)
+
+yarn format || (
+  echo '🏗️👷 Prettier formatting for boat demo'
+  false;
+)
+
+# Check Prettier Standards
+yarn check-format ||
+(
+    echo '🤢🤮🤢🤮 Your code format looks disgusting. 🤢🤮🤢🤮
+          Prettier Check Failed. Run yarn format, add changes and try commit again.';
+    false;
+)
+
+# Check boat demo build 
+# yarn build:boat ||
+# (
+#     echo '❌👷🔨❌ Better call Bob... Because your build failed ❌👷🔨❌
+#           Next build failed: View the errors above to see why.'
+#     false;
+# )
+   
+# If everything passes... Now we can commit
+echo '🤔🤔🤔🤔... Alright.... Code looks good to me...  I am committing this now. ✅✅✅✅'

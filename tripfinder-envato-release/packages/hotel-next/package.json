@@ -1,0 +1,58 @@
+{
+  "name": "@tripfinder/hotel-next",
+  "version": "5.0.1",
+  "scripts": {
+    "dev": "next -p 3001",
+    "start": "next -p 3001",
+    "build": "next build",
+    "serve": "next start -p 3001"
+  },
+  "dependencies": {
+    "@glidejs/glide": "^3.6.0",
+    "@react-google-maps/api": "^2.18.1",
+    "@styled-system/theme-get": "^5.1.2",
+    "antd": "^5.5.0",
+    "dayjs": "^1.11.6",
+    "history": "^5.3.0",
+    "isomorphic-unfetch": "^3.1.0",
+    "little-state-machine": "^4.8.0",
+    "lodash": "^4.17.21",
+    "mobile-detect": "^1.4.5",
+    "moment": "^2.29.4",
+    "next": "^12.3.4",
+    "next-cookies": "^2.0.3",
+    "postcss-preset-env": "^7.8.3",
+    "react": "^18.2.0",
+    "react-accessible-accordion": "^5.0.0",
+    "react-content-loader": "^6.2.1",
+    "react-dates": "^21.8.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
+    "react-icons": "^4.8.0",
+    "react-image-gallery": "^1.2.11",
+    "react-multi-carousel": "^2.8.3",
+    "react-scroll": "^1.8.8",
+    "react-share": "^4.4.1",
+    "react-stickynode": "^4.1.0",
+    "react-waypoint": "^10.3.0",
+    "sharp": "^0.31.2",
+    "styled-components": "^5.3.6",
+    "styled-system": "^5.1.5",
+    "use-http": "^1.0.28",
+    "webpack-filter-warnings-plugin": "^1.2.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "null-loader": "^4.0.1"
+  },
+  "browser": {
+    "fs": false,
+    "path": false
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
