@@ -1,0 +1,2 @@
+NEXT_PUBLIC_GOOGLE_MAP_API_KEY="AIzaSyAAH-ILlmlJBbF7hqVFz2Ha5Iu_5hD9Xx0"
+DATABASE_URL="mongodb+srv://<databaseUser>:<databasePassword>@cluster0.rgpeu2b.mongodb.net/<databaseName>?retryWrites=true&w=majority"

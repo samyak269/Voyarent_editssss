@@ -9,6 +9,8 @@ import Section from '@/components/ui/section';
 export default function DestinationBlock() {
   const { state } = useTimeout();
 
+  // fetch destination data from mongo here and pass it as prop in line 22
+
   return (
     <Section
       title="Top destinations for boat rentals"
