@@ -23,20 +23,29 @@ model Destinations {
 }
 
 model Vendor {
-  id           String    @id @default(uuid()) @map("_id") @db.ObjectId
-  name         String
-  img          String?
-  coverImage   String?
-  memberSince  String
-  languages    String[]
-  responseRate Int
-  responseTime String
-  location     String
-  Listing      Listing[]
+  id              String    @id @default(uuid()) @map("_id") @db.ObjectId
+  name            String
+  img             String?
+  coverImage      String?
+  memberSince     String
+  languages       String[]
+  responseRate    Int
+  responseTime    String
+  location        String
+  username        String
+  instagramHandle String
+  twitterHandle   String
+  Listing         Listing[]
 }
 
 model Listing {
   id                   String                 @id @default(uuid()) @map("_id") @db.ObjectId
+  type                 String
+  name                 String
+  bedroomsCount        Int
+  guestsCount          Int
+  cabinsCount          Int
+  bathroomsCount       Int
   price                Int
   gallery              String[]
   description          String
