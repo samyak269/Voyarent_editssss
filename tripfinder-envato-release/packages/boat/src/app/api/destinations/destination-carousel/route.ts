@@ -5,7 +5,9 @@ export async function GET(req: NextRequest) {
 
     try {
 
-        const destinations = await prisma.destinations.findMany()
+        const destinations = await prisma.destinations.findMany({
+            take: 5
+        })
 
         if (!destinations) {
             return new NextResponse(JSON.stringify({
