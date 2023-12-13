@@ -8,6 +8,7 @@ import CreateListingFooter from '@/components/footer/create-listing-footer';
 import { storeAtom, stepAtom } from '@/components/add-listing/add-listing';
 import Input from '@/components/ui/form-fields/input';
 import Text from '@/components/ui/typography/text';
+import { useEffect, useState } from 'react';
 
 const EquipmentSchema = z
   .object({
@@ -30,6 +31,7 @@ type EquipmentSchemaType = z.infer<typeof EquipmentSchema>;
 export default function AddSpecification() {
   const setStep = useSetAtom(stepAtom);
   const [store, setStore] = useAtom(storeAtom);
+  const [fetchError, setFetchError] = useState<null | string>(null)
   const {
     handleSubmit,
     register,
@@ -40,13 +42,48 @@ export default function AddSpecification() {
   });
 
   function handleSpecification(data: any) {
+
     setStore({
       ...store,
       specification: data,
     });
-    console.log(data);
-    setStep(7);
   }
+
+  useEffect(() => {
+    if (
+      store.specification.engine.length > 0 &&
+      store.specification.engineTorque.length > 0 &&
+      store.specification.fuelSystem.length > 0 &&
+      store.specification.boreStroke.length > 0 &&
+      store.specification.infotainmentSystem.length > 0 &&
+      store.specification.displacement.length > 0 &&
+      store.specification.fuelCapacity.length > 0 &&
+      store.specification.compressionRatio.length > 0 &&
+      store.specification.luggageCapacity.length > 0 &&
+      store.specification.fuelEconomy.length > 0 &&
+      store.specification.weight.length > 0
+    ) {
+      fetch('/api/listings/create-listing', {
+        method: 'post',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          store
+        })
+      })
+        .then((resp) => {
+          return resp.json()
+        })
+        .then((resp) => {
+          if (resp.success === true) {
+            setStep(7);
+          } else {
+            setFetchError(resp.error)
+          }
+        })
+    }
+  }, [store.specification])
 
   return (
     <div className="w-full md:w-[448px] xl:w-[648px]">
