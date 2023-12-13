@@ -8,13 +8,13 @@ datasource db {
 }
 
 model User {
-  id    String  @id @default(uuid()) @map("_id") @db.ObjectId
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
   email String  @unique
   name  String?
 }
 
 model Destinations {
-  id             String  @id @default(uuid()) @map("_id") @db.ObjectId
+  id             String  @id @default(auto()) @map("_id") @db.ObjectId
   name           String
   slug           String
   location       String
@@ -23,23 +23,23 @@ model Destinations {
 }
 
 model Vendor {
-  id              String    @id @default(uuid()) @map("_id") @db.ObjectId
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
   name            String
   img             String?
   coverImage      String?
-  memberSince     String
+  memberSince     DateTime?  @default(now())
   languages       String[]
-  responseRate    Int
-  responseTime    String
-  location        String
-  username        String
-  instagramHandle String
-  twitterHandle   String
+  responseRate    Int?
+  responseTime    String?
+  location        String?
+  username        String?
+  instagramHandle String?
+  twitterHandle   String?
   Listing         Listing[]
 }
 
 model Listing {
-  id                   String                 @id @default(uuid()) @map("_id") @db.ObjectId
+  id                   String                 @id @default(auto()) @map("_id") @db.ObjectId
   type                 String
   name                 String
   bedroomsCount        Int
@@ -58,7 +58,7 @@ model Listing {
 }
 
 model Equipment {
-  id        String  @id @default(uuid()) @map("_id") @db.ObjectId
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   img       String
   listings  Listing @relation(fields: [listingId], references: [id])
@@ -66,7 +66,7 @@ model Equipment {
 }
 
 model Review {
-  id        String  @id @default(uuid()) @map("_id") @db.ObjectId
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
   content   String
   rating    Int
   listing   Listing @relation(fields: [listingId], references: [id])
@@ -74,7 +74,7 @@ model Review {
 }
 
 model ListingSpecification {
-  id        String  @id @default(uuid()) @map("_id") @db.ObjectId
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   details   String
   listing   Listing @relation(fields: [listingId], references: [id])
