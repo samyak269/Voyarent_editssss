@@ -1,5 +1,6 @@
 import GoogleProvider from 'next-auth/providers/google'
 import { AuthOptions } from 'next-auth'
+import { prisma } from '@/prisma'
 
 const admins = ['tothesip@gmail.com', 'otasiddhant@gmail.com']
 
@@ -16,6 +17,9 @@ export const authOptions: AuthOptions = {
                     userRole = 'admin'
                 }
 
+                console.log(profile);
+                
+
                 return {
                     ...profile,
                     id: profile.sub,
@@ -24,4 +28,39 @@ export const authOptions: AuthOptions = {
             }
         }),
     ],
+    callbacks: {
+        async signIn({ user, account, profile, email, credentials }) {
+
+            if (!user.name) {
+                console.log('no name found');
+
+                return false
+            }
+
+            try {
+
+                const vendor = await prisma.vendor.findFirst({
+                    where: {
+                        name: user.name
+                    }
+                })
+
+                if (!vendor) {
+                    await prisma.vendor.create({
+                        data: {
+                            name: user.name
+                        }
+                    })
+                }
+
+                return true
+
+            } catch (error) {
+                console.log(error);
+
+                return false
+            }
+
+        }
+    }
 }
