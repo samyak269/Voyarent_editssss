@@ -8,15 +8,66 @@ datasource db {
 }
 
 model User {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  id    String  @id @default(uuid()) @map("_id") @db.ObjectId
   email String  @unique
   name  String?
 }
 
 model Destinations {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  id             String  @id @default(uuid()) @map("_id") @db.ObjectId
+  name           String
+  slug           String
+  location       String
+  thumbnail      String
+  topDestination Boolean @default(false)
+}
+
+model Vendor {
+  id           String    @id @default(uuid()) @map("_id") @db.ObjectId
+  name         String
+  img          String?
+  coverImage   String?
+  memberSince  String
+  languages    String[]
+  responseRate Int
+  responseTime String
+  location     String
+  Listing      Listing[]
+}
+
+model Listing {
+  id                   String                 @id @default(uuid()) @map("_id") @db.ObjectId
+  price                Int
+  gallery              String[]
+  description          String
+  vendor               Vendor                 @relation(fields: [vendorId], references: [id])
+  vendorId             String                 @db.ObjectId
+  Equipment            Equipment[]
+  Review               Review[]
+  ListingSpecification ListingSpecification[]
+  topListing           Boolean                @default(false)
+}
+
+model Equipment {
+  id        String  @id @default(uuid()) @map("_id") @db.ObjectId
   name      String
-  slug      String
-  location  String
-  thumbnail String
+  img       String
+  listings  Listing @relation(fields: [listingId], references: [id])
+  listingId String  @db.ObjectId
+}
+
+model Review {
+  id        String  @id @default(uuid()) @map("_id") @db.ObjectId
+  content   String
+  rating    Int
+  listing   Listing @relation(fields: [listingId], references: [id])
+  listingId String  @db.ObjectId
+}
+
+model ListingSpecification {
+  id        String  @id @default(uuid()) @map("_id") @db.ObjectId
+  name      String
+  details   String
+  listing   Listing @relation(fields: [listingId], references: [id])
+  listingId String  @db.ObjectId
 }
