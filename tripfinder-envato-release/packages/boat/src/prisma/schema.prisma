@@ -27,7 +27,7 @@ model Vendor {
   name            String
   img             String?
   coverImage      String?
-  memberSince     DateTime?  @default(now())
+  memberSince     DateTime? @default(now())
   languages       String[]
   responseRate    Int?
   responseTime    String?
@@ -47,6 +47,8 @@ model Listing {
   cabinsCount          Int
   bathroomsCount       Int
   price                Int
+  location             String
+  phoneNumber          String
   gallery              String[]
   description          String
   vendor               Vendor                 @relation(fields: [vendorId], references: [id])
@@ -74,9 +76,18 @@ model Review {
 }
 
 model ListingSpecification {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  details   String
-  listing   Listing @relation(fields: [listingId], references: [id])
-  listingId String  @db.ObjectId
+  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
+  engine             String
+  engineTorque       String
+  fuelSystem         String
+  boreStroke         String
+  infotainmentSystem String
+  displacement       String
+  fuelCapacity       String
+  compressionRatio    String
+  luggageCapacity    String
+  fuelEconomy        String
+  weight             String
+  listing            Listing @relation(fields: [listingId], references: [id])
+  listingId          String  @db.ObjectId
 }

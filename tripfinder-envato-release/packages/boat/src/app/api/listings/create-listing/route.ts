@@ -9,6 +9,7 @@ export async function POST(req: NextRequest) {
 
         const userInfo = await getServerSession(authOptions)
 
+
         const body: {
             store: {
                 boatName: string,
@@ -70,14 +71,26 @@ export async function POST(req: NextRequest) {
                 bedroomsCount: body.store.beadRooms,
                 bathroomsCount: body.store.bathRooms,
                 guestsCount: body.store.guests,
-                cabinsCount: 0
+                cabinsCount: 0,
+                location: body.store.location,
+                phoneNumber: body.store.phoneNumber,
+                ListingSpecification: {
+                    create: body.store.specification
+                }
             }
         })
 
-        return new NextResponse(JSON.stringify({
-            success: true,
-            message: `Listing with id: ${listing.id} has been created.`
-        }))
+        if (listing) {
+            return new NextResponse(JSON.stringify({
+                success: true,
+                message: `Listing with id: ${listing.id} has been created.`
+            }))
+        } else {
+            return new NextResponse(JSON.stringify({
+                success: false,
+                error: 'Sometihng went wrong.'
+            }))
+        }
 
     } catch (error) {
         return new NextResponse(JSON.stringify({
