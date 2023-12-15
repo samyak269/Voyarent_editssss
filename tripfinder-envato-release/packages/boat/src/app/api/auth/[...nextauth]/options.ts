@@ -1,4 +1,6 @@
 import GoogleProvider from 'next-auth/providers/google'
+import FacebookProvider from 'next-auth/providers/facebook'
+import AppleProvider from 'next-auth/providers/apple'
 import { AuthOptions } from 'next-auth'
 import { prisma } from '@/prisma'
 
@@ -12,13 +14,9 @@ export const authOptions: AuthOptions = {
             profile(profile) {
                 let userRole = 'user'
 
-                // mention admin's email
                 if (admins.includes(profile?.email)) {
                     userRole = 'admin'
                 }
-
-                console.log(profile);
-                
 
                 return {
                     ...profile,
@@ -27,6 +25,26 @@ export const authOptions: AuthOptions = {
                 }
             }
         }),
+        FacebookProvider({
+            clientId: process.env.FACEBOOK_NEXT_AUTH_CLIENT_ID!,
+            clientSecret: process.env.FACEBOOK_NEXT_AUTH_CLIENT_SECRET!,
+            profile(profile) {
+                let userRole = 'user'
+
+                if (admins.includes(profile?.email)) {
+                    userRole = 'admin'
+                }
+
+                return {
+                    ...profile,
+                    userRole
+                }
+            }
+        }),
+        AppleProvider({
+            clientId: process.env.FACEBOOK_NEXT_AUTH_CLIENT_ID!,
+            clientSecret: process.env.FACEBOOK_NEXT_AUTH_CLIENT_SECRET!,
+        })
     ],
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
