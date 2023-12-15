@@ -60,15 +60,6 @@ export async function POST(req: NextRequest) {
                 error: 'User does not exist.'
             }))
         }
-        // https://boatrentaldev.s3.ap-south-1.amazonaws.com/uploads/listings/ed932698-7945-42b5-bb22-03ab818f7475
-        // images: [
-        //     '7336fb30-fc9a-4b7e-830d-710668f5ab2f',
-        //     '28416453-513b-48b9-9de0-2e779ef852de',
-        //     '62031a24-6546-4b52-bdf2-b151e71221f8',
-        //     '905c1a44-dc01-4ff4-9743-b8dbb6b4b648',
-        //     '21a6966a-6a1f-414c-9cc7-0d0f9142b9a5',
-        //     '38c04568-3054-4eb3-af38-725bee833d42'
-        // ],
 
         const listing = await prisma.listing.create({
             data: {

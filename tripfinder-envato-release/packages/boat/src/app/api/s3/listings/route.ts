@@ -1,9 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getObjectURL, putObjectURL } from '@/s3/index';
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../auth/[...nextauth]/options";
 
 export async function POST(req: NextRequest) {
- 
+
     try {
+        const isAuthenticated = await getServerSession(authOptions)
+        if (!isAuthenticated?.user) {
+            return NextResponse.json({
+                success: false,
+                error: 'User not logged in'
+            })
+        }
+
         const body = await req.json()
         console.log(body);
 
