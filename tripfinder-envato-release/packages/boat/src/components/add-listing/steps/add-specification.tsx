@@ -63,13 +63,16 @@ export default function AddSpecification() {
       store.specification.fuelEconomy.length > 0 &&
       store.specification.weight.length > 0
     ) {
+      let storeToSend = store
+      // @ts-ignore
+      storeToSend.images = storeToSend.images.map((image) => image.key)
       fetch('/api/listings/create-listing', {
         method: 'post',
         headers: {
           'Content-type': 'application/json'
         },
         body: JSON.stringify({
-          store
+          store: storeToSend
         })
       })
         .then((resp) => {
