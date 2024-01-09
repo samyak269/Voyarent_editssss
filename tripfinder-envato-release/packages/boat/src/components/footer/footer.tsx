@@ -10,16 +10,16 @@ const menuItems = [
     path: Routes.public.AboutUs,
   },
   {
-    label: 'Explore',
-    path: Routes.public.explore,
-  },
-  {
     label: 'Frequently Asked Questions',
     path: Routes.public.faq,
   },
   {
-    label: 'Help',
-    path: Routes.public.help,
+    label: 'Guest Review',
+    path: Routes.public.GuestReviews,
+  },
+  {
+    label: 'Owner Comments',
+    path: Routes.public.Comment,
   },
 ];
 

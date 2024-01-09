@@ -12,6 +12,8 @@ export const Routes = {
     contact: '/contact',
     faq: '/FAQ',
     AboutUs: '/AboutUs',
+    GuestReviews: '/GUEST-REVIEW',
+    Comment: '/Owner-Comment',
     news: '/news',
     help: '/help',
     notFound: '/404',
