@@ -10,6 +10,7 @@ export const Routes = {
     explore: '/explore',
     pricing: '/pricing',
     contact: '/contact',
+    faq: '/FAQ',
     news: '/news',
     help: '/help',
     notFound: '/404',
