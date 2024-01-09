@@ -11,6 +11,7 @@ export const Routes = {
     pricing: '/pricing',
     contact: '/contact',
     faq: '/FAQ',
+    AboutUs: '/AboutUs',
     news: '/news',
     help: '/help',
     notFound: '/404',

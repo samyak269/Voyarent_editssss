@@ -6,8 +6,8 @@ import { Routes } from '@/config/routes';
 
 const menuItems = [
   {
-    label: 'Home',
-    path: Routes.public.home,
+    label: 'About Us',
+    path: Routes.public.AboutUs,
   },
   {
     label: 'Explore',
