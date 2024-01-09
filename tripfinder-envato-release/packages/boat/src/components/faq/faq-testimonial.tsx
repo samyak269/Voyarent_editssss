@@ -65,8 +65,8 @@ export default function FAQTestimonial() {
           Frequently asked questions
         </Text>
         <Text className="mt-2 text-sm lg:mt-3">
-          Everything you need to know about <br className="lg:hidden" /> 
-          Voyarent
+          Everything you need to know about <br className="lg:hidden" /> the
+          product and billing
         </Text>
       </div>
       <div className="mt-8 lg:mt-12 2xl:mt-16">
