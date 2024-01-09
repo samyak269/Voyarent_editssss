@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  email String  @unique
+  name  String?
+}
+
+model Destinations {
+  id             String  @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  slug           String
+  location       String
+  thumbnail      String
+  topDestination Boolean @default(false)
+}
+
+model Vendor {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  img             String?
+  coverImage      String?
+  memberSince     DateTime? @default(now())
+  languages       String[]
+  responseRate    Int?
+  responseTime    String?
+  location        String?
+  username        String?
+  instagramHandle String?
+  twitterHandle   String?
+  Listing         Listing[]
+}
+
+model Listing {
+  id                   String                 @id @default(auto()) @map("_id") @db.ObjectId
+  type                 String
+  name                 String
+  bedroomsCount        Int
+  guestsCount          Int
+  cabinsCount          Int
+  bathroomsCount       Int
+  price                Int
+  location             String
+  phoneNumber          String
+  gallery              String[]
+  description          String
+  vendor               Vendor                 @relation(fields: [vendorId], references: [id])
+  vendorId             String                 @db.ObjectId
+  Equipment            Equipment[]
+  Review               Review[]
+  ListingSpecification ListingSpecification[]
+  topListing           Boolean                @default(false)
+}
+
+model Equipment {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  img       String
+  listings  Listing @relation(fields: [listingId], references: [id])
+  listingId String  @db.ObjectId
+}
+
+model Review {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  content   String
+  rating    Int
+  listing   Listing @relation(fields: [listingId], references: [id])
+  listingId String  @db.ObjectId
+}
+
+model ListingSpecification {
+  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
+  engine             String
+  engineTorque       String
+  fuelSystem         String
+  boreStroke         String
+  infotainmentSystem String
+  displacement       String
+  fuelCapacity       String
+  compressionRatio    String
+  luggageCapacity    String
+  fuelEconomy        String
+  weight             String
+  listing            Listing @relation(fields: [listingId], references: [id])
+  listingId          String  @db.ObjectId
+}

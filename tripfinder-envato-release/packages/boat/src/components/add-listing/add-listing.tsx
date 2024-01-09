@@ -4,7 +4,7 @@ import { atomWithStorage } from 'jotai/utils';
 import { atom, useAtomValue } from 'jotai';
 import dynamic from 'next/dynamic';
 
-const CreateListing = dynamic(
+const CreateListing: any = dynamic(
   () => import('@/components/add-listing/steps/create-listing')
 );
 const BoatInfo = dynamic(

@@ -6,21 +6,27 @@ import CreateListingFooter from '@/components/footer/create-listing-footer';
 import { stepAtom, storeAtom } from '@/components/add-listing/add-listing';
 import Text from '@/components/ui/typography/text';
 import Upload from '@/components/ui/upload';
+import { uuid } from 'uuidv4'
+import { useState } from 'react';
 
 let newImgArr: any = [];
 
 export default function AddBoatPhotos() {
   const setStep = useSetAtom(stepAtom);
   const [store, setStore] = useAtom(storeAtom);
-
+  const [uploadError, setUploadError] = useState<null | string>(null)
   function handleDropAccepted(e: any) {
     e.forEach((item: any) => {
+
       newImgArr.push({
         id: `upload-${URL.createObjectURL(item)}`,
+        key: uuid(),
+        file: item,
         img: URL.createObjectURL(item),
       });
     });
     console.log(e);
+
     setStore({ ...store, images: newImgArr });
   }
 
@@ -68,7 +74,56 @@ export default function AddBoatPhotos() {
         </Upload>
         <CreateListingFooter
           onBack={() => setStep(2)}
-          onNext={() => setStep(4)}
+          onNext={() => {
+            fetch('/api/s3/listings', {
+              method: 'post',
+              headers: {
+                'Content-type': 'application/json'
+              },
+              body: JSON.stringify({
+                // @ts-ignore
+                fileNames: store.images.map((item) => item.key)
+              })
+            })
+              .then(async (resp) => {
+                if (resp.ok) {
+                  return resp.json()
+                } else {
+                  const respBody = await resp.json()
+                  setUploadError(respBody.error)
+                }
+              })
+              .then((resp) => {
+                console.log(resp);
+
+                resp.url.map((singleURL: { key: string, url: string }) => {
+
+                  store.images.map((image) => {
+                    // @ts-ignore
+                    if (image.key === singleURL.key) {
+                      fetch(singleURL.url, {
+                        method: 'put',
+                        headers: {
+                          // @ts-ignore
+                          'Content-type': 'image/jpeg'
+                        },
+                        // @ts-ignore
+                        body: image.file
+                      })
+                        .then((resp) => {
+                          if (resp.ok) {
+                            setStep(4)
+                          } else {
+                            setUploadError('Upload failed.')
+                          }
+                        })
+                    } else {
+                      setUploadError('Something went wrong.')
+                    }
+                  })
+                })
+              })
+          }}
         />
       </form>
     </div>
