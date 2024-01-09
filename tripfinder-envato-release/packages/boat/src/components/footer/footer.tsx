@@ -14,14 +14,15 @@ const menuItems = [
     path: Routes.public.explore,
   },
   {
-    label: 'Pricing',
-    path: Routes.public.pricing,
+    label: 'Frequently Asked Questions',
+    path: Routes.public.faq,
   },
   {
     label: 'Help',
     path: Routes.public.help,
   },
 ];
+
 
 export default function Footer({ className }: { className?: string }) {
   return (
@@ -37,9 +38,9 @@ export default function Footer({ className }: { className?: string }) {
           d="M0 22L120 16.7C240 11 480 1.00001 720 0.700012C960 1.00001 1200 11 1320 16.7L1440 22V54H1320C1200 54 960 54 720 54C480 54 240 54 120 54H0V22Z"
         />
       </svg>
-      <div className=" px-4 pt-12 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 bg-indigo-950">
-        <div className=" grid gap-16 row-gap-10 mb-8 lg:grid-cols-6 bg-indigo-950">
-          <div className=" md:max-w-md lg:col-span-2 bg-indigo-950">
+      <div className=" px-4 pt-12 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 bg-white-950">
+        <div className=" grid gap-16 row-gap-10 mb-8 lg:grid-cols-6 bg-white-950">
+          <div className=" md:max-w-md lg:col-span-2 bg-white-950">
             <a
               href="/"
               aria-label="Go home"
@@ -47,16 +48,16 @@ export default function Footer({ className }: { className?: string }) {
               className="inline-flex items-center"
             >
               {/* <LOGO></LOGO> */}
-              <span className="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">
+              <span className="ml-2 text-xl font-bold tracking-wide text-black-100 uppercase">
                 Voyarent
               </span>
             </a>
             <div className="mt-4 lg:max-w-sm">
-              <p className="text-sm text-gray-100">
+              <p className="text-sm text-black-100">
                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem
                 accusantium doloremque laudantium, totam rem aperiam.
               </p>
-              <p className="mt-4 text-sm text-gray-100">
+              <p className="mt-4 text-sm text-black-100">
                 Eaque ipsa quae ab illo inventore veritatis et quasi architecto
                 beatae vitae dicta sunt explicabo.
               </p>
@@ -69,7 +70,7 @@ export default function Footer({ className }: { className?: string }) {
           
             <div>
 
-             <p className="font-semibold text-gray-100 tracking-wide ">
+             <p className="font-semibold text-black-100 tracking-wide ">
                    Voyarent
              </p>
                  <ul className="mt-2 space-y-2">
@@ -80,7 +81,77 @@ export default function Footer({ className }: { className?: string }) {
                   >
                     <a
                       href={item.path}
-                      className=" text-gray-100 "
+                      className=" text-black-100 "
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+                </ul>
+              
+              
+            </div>
+
+            <div>
+
+             <p className="font-semibold text-black-100 tracking-wide ">
+                   Terms and Conditions
+             </p>
+                 <ul className="mt-2 space-y-2">
+                 {menuItems.map((item) => (
+                  <li
+                    key={item.label}
+                    className=""
+                  >
+                    <a
+                      href={item.path}
+                      className=" text-black-100 "
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+                </ul>
+              
+              
+            </div>
+            <div>
+
+             <p className="font-semibold text-black-100 tracking-wide ">
+                   Useful Links
+             </p>
+                 <ul className="mt-2 space-y-2">
+                 {menuItems.map((item) => (
+                  <li
+                    key={item.label}
+                    className=""
+                  >
+                    <a
+                      href={item.path}
+                      className=" text-black-100 "
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+                </ul>
+              
+              
+            </div>
+            <div>
+
+             <p className="font-semibold text-black-100 tracking-wide ">
+                   Customer Services
+             </p>
+                 <ul className="mt-2 space-y-2">
+                 {menuItems.map((item) => (
+                  <li
+                    key={item.label}
+                    className=""
+                  >
+                    <a
+                      href={item.path}
+                      className=" text-black-100 "
                     >
                       {item.label}
                     </a>
@@ -94,8 +165,8 @@ export default function Footer({ className }: { className?: string }) {
           </div>
         </div>
         <div className="flex flex-col justify-between pt-5 pb-10 border-t border-deep-purple-accent-200 sm:flex-row">
-          <p className="text-sm text-gray-100">
-            © Copyright 2020 Lorem Inc. All rights reserved.
+          <p className="text-sm text-black-100">
+            © Copyright 2024 Skylite Web All rights reserved.
           </p>
           {/* <div className="flex items-center mt-4 space-x-4 sm:mt-0">
             <a
