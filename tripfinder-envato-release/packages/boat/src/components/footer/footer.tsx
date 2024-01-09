@@ -21,6 +21,10 @@ const menuItems = [
     label: 'Help',
     path: Routes.public.help,
   },
+  {
+    label: 'About Us',
+    path: Routes.public.about
+  }
 ];
 
 export default function Footer({ className }: { className?: string }) {
