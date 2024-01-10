@@ -295,10 +295,70 @@ const page = () => {
         <p className='text-3xl my-10 font-bold'>BOOKING OPTIONS AND STEPS</p>
         <p className='text-xl my-10'>Bookings are made with a few simple steps  through secure payment solutions in the following ways which, upon acceptance, bookings are a binding agreement between renters and owners.</p>
 
-        <p className='text-xl'> <span className='font-bold'>IMMEDIATE ONLINE BOOKING: </span>Immediate payment of the reservation after selection of the boat by the renter and confirmation, without the process of approval and acceptance of the reservation by the owner. After charging the amount of the rental price from the renters' account, Voyarent sends the confirmation and the booking details to those involved.</p>
-        <p className='text-xl'> <span className='font-bold'> AFTER RENTERS’ REQUEST TO THE OWNER: </span> The renter, after choosing the boat of his choice, activates the reservation request to the owner. The owner has 24 hours to answer whether or not he accepts the reservation. The payment of the reservation is activated automatically with the acceptance of the owner. Voyarent after charging the 50% of the rental  from the renter's account sends the confirmation and the details of the reservation to the involved parties.</p>
-        <p className='text-xl'> <span className='font-bold'>IMMEDIATE ONLINE BOOKING: </span> </p>
+        <p className='text-xl my-10'> <span className='font-bold'>IMMEDIATE ONLINE BOOKING: </span>Immediate payment of the reservation after selection of the boat by the renter and confirmation, without the process of approval and acceptance of the reservation by the owner. After charging the amount of the rental price from the renters' account, Voyarent sends the confirmation and the booking details to those involved.</p>
+        <p className='text-xl my-10'> <span className='font-bold'> AFTER RENTERS’ REQUEST TO THE OWNER: </span> The renter, after choosing the boat of his choice, activates the reservation request to the owner. The owner has 24 hours to answer whether or not he accepts the reservation. The payment of the reservation is activated automatically with the acceptance of the owner. Voyarent after charging the 50% of the rental  from the renter's account sends the confirmation and the details of the reservation to the involved parties.</p>
+        <p className='text-xl my-10'> <span className='font-bold'>IMMEDIATE ONLINE BOOKING: </span> </p>
+        <p className='text-xl my-10'> <span className='font-bold'>SMART SEARCH: </span>When using Voyarent's Smart Search feature, renters can input their travel preferences to find the perfect boat for their needs. Once the search is complete, the owners whose boats match the search criteria will receive the renters' requests. The boat owners then have a 24-hour to respond to the request and express their interest in the renters by sending their offer. Once an agreement has been reached between the owner and the renters, both parties will accept and confirm the booking. At this point, the reservation payment is automatically activated and charged to the renter's account. Voyarent then sends a confirmation of the booking and all the relevant details to everyone involved in the transaction. In the case that a renter needs to cancel their reservation, they can do so through the Voyarent system by activating the "CANCEL" option. The automated system will then confirm the cancellation and notify all parties involved. During the cancellation process, a detailed description of the refund will be provided. The amount of the refund will depend on the time of cancellation and the cancellation policy chosen and registered by the owner. Once this information is provided, Voyarent will initiate the refund process, which will be completed within 15 working days, in accordance with the platform's terms of use. If the owner does not have a specific cancellation policy, Voyarent's default policy applies. According to this policy, renters can receive a refund of up to 100% if they cancel up to 24 hours before boarding. However, if the cancellation occurs within 24 hours of boarding, the amount already spent will not be refunded. It's important to note that in each case of a refund, the recipients of the refund will be charged the service cost of the platform, which is calculated based on the total amount of overnight stays, including staff remuneration. The refund process, including this cost, will be completed within 15 working days.</p>
 
+        <p className='text-3xl my-10'>CANCELLATION OF RESERVATION-REFUNDS</p>
+        <p className='text-xl my-10'>The Charterer has the option to cancel the reservation through the system before boarding, by activating the ‘CANCEL’ option. The automated system will proceed to the confirmation of the cancellation and will inform all parties involved.</p>
+
+        <ul className='text-xl ml-4 my-10 list-disc'>
+          <li>
+            <p className='text-xl'>
+              During the cancellation process, a detailed description of the refund will appear, which will indicate the amount of the refund depending on the time of cancellation and the cancellation policy chosen and registered by the owner. After that, the company will activate and complete the refund procedure according to the terms of use within 15 working days.
+            </p>
+          </li>
+          <li>
+            <p className='text-xl'>
+              Daily Cruises cancellations are subject to the respective owner's cancellation policy. In case there is not a cancellation policy stated by the owner, the cancellation policy applied by the platform is:
+              Cancellation and Refund of up to 100% on Daily Cruises, if canceling up to 24 hours before boarding. For cancellations up to 24 hours before boarding, the amount already spent is not refunded.
+            </p>
+          </li>
+        </ul>
+        <p className='text-xl my-10'>In each case of refund, the recipients of the refund are charged with the service cost of the platform, which is calculated on the total amount of overnight stays including staff remuneration.</p>
+        <p className='text-xl'>The refund process is completed within 15 working days.</p>
+
+        <p className='text-3xl my-10'>CANCELLATION POLICY</p>
+        <div className='my-10'>
+          <p className='text-xl'>Flexible: </p>
+          <p className='text-xl'>100% refund if cancelled up to 7 days before boarding. 50% refund if cancelled up to 1 day before boarding.</p>
+        </div>
+        <div className='my-10'>
+          <p className='text-xl'>Moderate: </p>
+          <p className='text-xl'>100% refund if cancelled up to 31 days before boarding. 50% refund if cancelled up to 8 days before boarding.</p>
+        </div>
+        <div className='my-10'>
+          <p className='text-xl'>Strict: </p>
+          <p className='text-xl'>60% refund if cancelled up to 31 days before boarding.</p>
+        </div>
+        <div className='my-10'>
+          <p className='text-xl'>Very strict: </p>
+          <p className='text-xl'>50% refund if cancelled up to 60 days before boarding.
+            (In the event that the vessel is re-chartered, the amount corresponding to the corresponding rental period of the initial rental will be returned to the Charterer)</p>
+        </div>
+
+        <p className='text-3xl my-10'>REFUNDS FOR REASONS OF FORCE MAJEURE</p>
+        <p className='text-xl my-10'> It includes any unforeseeable event beyond the control of Voyarent and the Users such as, natural disasters, (fires, storms, floods,) war or terrorist attacks, disabilities and serious illnesses, damage to the vessel causing inability to sail the vessel, blockages and slowdowns in electronic communications networks.</p>
+        <p className='text-xl my-10'>
+          In cases of force majeure and after you have provided the appropriate evidence within 24 hours of the event:
+          You are entitled to change the date of the voyage depending on the availability of the vessel at the time of cancellation in the following cases:
+        </p>
+
+        <ul className='text-xl my-10'>
+          <li>
+            <p className='text-xl'>1. Death or serious illness of the traveler or close family member.</p>
+          </li>
+          <li>
+            <p className='text-xl'>2. Natural disaster or political unrest in the country, on the day of boarding.</p>
+          </li>
+          <li>
+            <p className='text-xl'>3. Due to quarantine imposed at the place of boarding.</p>
+          </li>
+        </ul>
+        <p className='text-xl'>Amount already spent is non-refundable.</p>
+        <p className='text-3xl my-10'>SPECIAL CIRCUMSTANCES CANCELLATIONS</p>
+        <p className='text-xl'></p>
       </div>
     </div>
   )
