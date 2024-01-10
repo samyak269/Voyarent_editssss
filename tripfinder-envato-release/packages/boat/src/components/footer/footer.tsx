@@ -23,6 +23,50 @@ const menuItems = [
   },
 ];
 
+const termsandcondition = [
+  {
+    label: 'Terms of use',
+    path: Routes.public.AboutUs,
+  },
+  {
+    label: 'Cancellations - Refunds',
+    path: Routes.public.faq,
+  },
+  {
+    label: 'Payments',
+    path: Routes.public.GuestReviews,
+  },
+  {
+    label: 'Copyright',
+    path: Routes.public.Comment,
+  },
+  {
+    label: 'Privacy',
+    path: Routes.public.Comment,
+  }
+];
+const usefullinks = [
+  {
+    label: 'Smart search',
+    path: Routes.public.AboutUs,
+  },
+  {
+    label: 'Find your boat',
+    path: Routes.public.faq,
+  },
+  {
+    label: 'Register your boat',
+    path: Routes.public.GuestReviews,
+  },
+  {
+    label: 'Cruise',
+    path: Routes.public.Comment,
+  },
+  {
+    label: 'Our Partners',
+    path: Routes.public.Comment,
+  }
+];
 
 export default function Footer({ className }: { className?: string }) {
   return (
@@ -98,7 +142,7 @@ export default function Footer({ className }: { className?: string }) {
                    Terms and Conditions
              </p>
                  <ul className="mt-2 space-y-2">
-                 {menuItems.map((item) => (
+                 {termsandcondition.map((item) => (
                   <li
                     key={item.label}
                     className=""
@@ -121,7 +165,7 @@ export default function Footer({ className }: { className?: string }) {
                    Useful Links
              </p>
                  <ul className="mt-2 space-y-2">
-                 {menuItems.map((item) => (
+                 {usefullinks.map((item) => (
                   <li
                     key={item.label}
                     className=""
