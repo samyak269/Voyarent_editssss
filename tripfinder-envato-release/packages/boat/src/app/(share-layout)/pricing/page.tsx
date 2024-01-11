@@ -1,3 +1,4 @@
+// -------DESIGNED BY VAISHNAVI BHARDWAJ--------
 import PricingBlock from '@/components/pricing/pricing-block';
 import PricingSteps from '@/components/pricing/pricing-steps';
 import PricingTestimonials from '@/components/pricing/pricing-testimonials';
