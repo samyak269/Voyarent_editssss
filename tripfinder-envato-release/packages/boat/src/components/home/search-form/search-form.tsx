@@ -12,6 +12,7 @@ import { CalenderIcon } from '@/components/icons/calender';
 import Text from '@/components/ui/typography/text';
 import Button from '@/components/ui/button';
 import { Routes } from '@/config/routes';
+import BoatFilters from './boat-filter';
 
 type QueryStringType = {
   location?: string;
@@ -120,6 +121,9 @@ export default function FindTripForm() {
         containerClass="mb-3"
         popperClassName="homepage-datepicker"
       />
+      <BoatFilters
+      />
+      <br></br>
       <Button
         type="submit"
         className="w-full !py-[14px] text-sm !font-bold uppercase leading-6 md:!py-[17px] md:text-base lg:!rounded-xl 3xl:!py-[22px]"
