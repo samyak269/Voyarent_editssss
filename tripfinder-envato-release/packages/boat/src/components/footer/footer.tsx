@@ -26,7 +26,7 @@ const menuItems = [
 const termsandcondition = [
   {
     label: 'Terms of use',
-    path: Routes.public.AboutUs,
+    path: Routes.public.termsandcondition,
   },
   {
     label: 'Cancellations - Refunds',
@@ -65,6 +65,25 @@ const usefullinks = [
   {
     label: 'Our Partners',
     path: Routes.public.Comment,
+  }
+];
+const CustomerServices = [
+  {
+    label: 'Smart search',
+    path: Routes.public.AboutUs,
+  },
+  {
+    label: 'Help',
+    path: Routes.public.faq,
+  },
+  {
+    label: 'info@voyarent.com',
+  },
+  {
+    label: 'support@voyarent.com',
+  },
+  {
+    label: 'account@voyarent.com',
   }
 ];
 
@@ -188,7 +207,7 @@ export default function Footer({ className }: { className?: string }) {
                    Customer Services
              </p>
                  <ul className="mt-2 space-y-2">
-                 {menuItems.map((item) => (
+                 {CustomerServices.map((item) => (
                   <li
                     key={item.label}
                     className=""

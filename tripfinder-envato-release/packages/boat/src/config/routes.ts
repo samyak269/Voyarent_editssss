@@ -14,6 +14,7 @@ export const Routes = {
     AboutUs: '/AboutUs',
     GuestReviews: '/GUEST-REVIEW',
     Comment: '/Owner-Comment',
+    termsandcondition: '/termsandcondition',
     news: '/news',
     help: '/help',
     notFound: '/404',
