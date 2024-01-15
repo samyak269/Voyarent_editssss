@@ -7,87 +7,532 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  email String  @unique
-  name  String?
-}
-
-model Destinations {
-  id             String  @id @default(auto()) @map("_id") @db.ObjectId
-  name           String
-  slug           String
-  location       String
-  thumbnail      String
-  topDestination Boolean @default(false)
-}
-
-model Vendor {
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+model activities {
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  description     String
+  icon            String
   name            String
-  img             String?
-  coverImage      String?
-  memberSince     DateTime? @default(now())
-  languages       String[]
-  responseRate    Int?
-  responseTime    String?
-  location        String?
-  username        String?
-  instagramHandle String?
-  twitterHandle   String?
-  Listing         Listing[]
+  oldId           Int
+  status          activities_status
+  activities_lang activities_lang[]
+  boats           boats[]           @relation(fields: [boatsIds], references: [id])
+  boatsIds        String[]          @db.ObjectId
 }
 
-model Listing {
-  id                   String                 @id @default(auto()) @map("_id") @db.ObjectId
-  type                 String
-  name                 String
-  bedroomsCount        Int
-  guestsCount          Int
-  cabinsCount          Int
-  bathroomsCount       Int
-  price                Int
-  location             String
-  phoneNumber          String
-  gallery              String[]
-  description          String
-  vendor               Vendor                 @relation(fields: [vendorId], references: [id])
-  vendorId             String                 @db.ObjectId
-  Equipment            Equipment[]
-  Review               Review[]
-  ListingSpecification ListingSpecification[]
-  topListing           Boolean                @default(false)
+enum activities_status {
+  Active
+  Inactive
 }
 
-model Equipment {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  img       String
-  listings  Listing @relation(fields: [listingId], references: [id])
-  listingId String  @db.ObjectId
+model activities_lang {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  description  String
+  lang_code    String
+  created_at   String
+  updated_at   String
+  activities   activities @relation(fields: [activitiesId], references: [id])
+  activitiesId String     @db.ObjectId
 }
 
-model Review {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  content   String
-  rating    Int
-  listing   Listing @relation(fields: [listingId], references: [id])
-  listingId String  @db.ObjectId
+model admins {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  created_at     String
+  deleted_at     String?
+  email          String        @unique
+  password       String
+  remember_token String?
+  status         admin_status?
+  updated_at     String
+  username       String        @unique
 }
 
-model ListingSpecification {
-  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
-  engine             String
-  engineTorque       String
-  fuelSystem         String
-  boreStroke         String
-  infotainmentSystem String
-  displacement       String
-  fuelCapacity       String
-  compressionRatio    String
-  luggageCapacity    String
-  fuelEconomy        String
-  weight             String
-  listing            Listing @relation(fields: [listingId], references: [id])
-  listingId          String  @db.ObjectId
+enum admin_status {
+  Active
+  Inactive
+}
+
+model amenities {
+  id               String           @id @default(auto()) @map("_id") @db.ObjectId
+  description      String?
+  icon             String
+  name             String
+  oldId            Int
+  status           amenitiesStatus
+  amenitiesType    amenities_type   @relation(fields: [amenities_typeId], references: [id])
+  amenities_typeId String           @db.ObjectId
+  amenities_lang   amenities_lang[]
+  boats            boats[]          @relation(fields: [boatsIds], references: [id])
+  boatsIds         String[]         @db.ObjectId
+}
+
+enum amenitiesStatus {
+  Active
+  Inactive
+}
+
+model amenities_type {
+  id                  String                @id @default(auto()) @map("_id") @db.ObjectId
+  description         String
+  name                String
+  oldId               Int
+  status              amenities_type_status
+  amenities           amenities[]
+  amenities_type_lang amenities_type_lang[]
+}
+
+model amenities_type_lang {
+  id                String         @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  description       String
+  lang_code         String
+  created_at        String
+  updated_at        String
+  amenities_type    amenities_type @relation(fields: [amenities_type_id], references: [id])
+  amenities_type_id String         @db.ObjectId
+}
+
+enum amenities_type_status {
+  Active
+  Inactive
+}
+
+model boatCategory {
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  oldId            Int
+  description      String
+  name             String
+  status           boatCategoryStatus
+  boatType         boatType           @relation(fields: [boatTypeId], references: [id])
+  boatTypeId       String             @db.ObjectId
+  boatCategoryLang boatCategoryLang[]
+  boats            boats[]
+}
+
+enum boatCategoryStatus {
+  Active
+  Inactive
+}
+
+model boatMake {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  description  String?
+  icon         String?
+  name         String
+  oldId        BigInt
+  status       boatMakeStatus
+  boatMakeLang boatMakeLang[]
+  boatModel    boatModel[]
+  boats        boats[]
+}
+
+model boatMakeLang {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  boatMake    boatMake @relation(fields: [boatMakeId], references: [id])
+  boatMakeId  String   @db.ObjectId
+  name        String
+  description String
+  langCode    String
+  createdAt   String
+  updatedAt   String
+}
+
+model boatModel {
+  id          String         @id @default(auto()) @map("_id") @db.ObjectId
+  oldId       Int
+  name        String
+  description String
+  status      boatMakeStatus
+  boatMake    boatMake       @relation(fields: [boatMakeId], references: [id])
+  boatMakeId  String         @db.ObjectId
+  boats       boats[]
+}
+
+enum boatMakeStatus {
+  Active
+  Inactive
+}
+
+enum boatTypeStatus {
+  Active
+  Inactive
+}
+
+// model boatModel {
+//   id          String          @id @default(auto()) @map("_id") @db.ObjectId
+//   oldId       Int
+//   boatMake    boatMake        @relation(fields: [boatMakeId], references: [id])
+//   boatMakeId  String          @db.ObjectId
+//   name        String
+//   description String
+//   status      boatModelStatus
+// }
+
+enum boatModelStatus {
+  Active
+  Inactive
+}
+
+model fuel {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  description String
+  name        String
+  oldId       BigInt
+  status      fuelStatus
+  fuel_langs  fuel_lang[]
+  boats       boats[]
+}
+
+enum fuelStatus {
+  Active
+  Inactive
+}
+
+model language {
+  id              String         @id @default(auto()) @map("_id") @db.ObjectId
+  defaultLanguage String
+  isTranslatable  isTranslatable
+  name            String
+  old_id          BigInt
+  ordering        BigInt?
+  status          String
+  value           String
+  usersId         String[]       @db.ObjectId
+  users           users[]        @relation(fields: [usersId], references: [id])
+}
+
+enum isTranslatable {
+  Translatable
+  NonTranslatable
+}
+
+model users {
+  id                      String                    @id @default(auto()) @map("_id") @db.ObjectId
+  oldId                   Int
+  about                   String
+  bookingCompanyTerms     String
+  bookingManagerCompanyId BigInt
+  bookingManagerCountry   String
+  companyAddress          String?
+  companyName             String?
+  createdAt               DateTime
+  currencyCode            String?
+  deletedAt               String?
+  dob                     DateTime?
+  email                   String
+  fbId                    String?
+  firstName               String
+  gender                  genderStatus?
+  lastName                String
+  password                String
+  rememberToken           String?
+  live                    String?
+  school                  String?
+  work                    String?
+  timezone                String?
+  languagesId             String[]                  @db.ObjectId
+  languages               language[]                @relation(fields: [languagesId], references: [id])
+  locale                  String?
+  googleId                String?
+  linkedIn                String?
+  status                  userStatus
+  vatNumber               String?
+  iban                    String?
+  userType                String?
+  identificationURL       String?
+  identificationStatus    usersIdentificationStatus
+  updatedAt               DateTime?
+  bookingadvisors         bookingadvisors[]
+  boats                   boats[]
+}
+
+enum usersIdentificationStatus {
+  identified
+  not_identified
+  pending
+}
+
+enum userStatus {
+  Active
+  Inactive
+}
+
+enum genderStatus {
+  Male
+  Female
+  Other
+  null
+}
+
+model boatType {
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  oldId            Int
+  name             String
+  description      String?
+  icon             String?
+  status           boatTypeStatus
+  boatTypeLanguage boatTypeLanguage[]
+  boatCategory     boatCategory[]
+  amenities_lang   amenities_lang[]
+  bookingadvisors  bookingadvisors[]
+  boats            boats[]
+}
+
+model boatTypeLanguage {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  boatType    boatType @relation(fields: [boatTypeId], references: [id])
+  boatTypeId  String   @db.ObjectId
+  name        String
+  description String
+  langCode    String
+  created_at  String
+  updated_at  String
+}
+
+model boatCategoryLang {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  boatCategory   boatCategory @relation(fields: [boatCategoryId], references: [id])
+  boatCategoryId String       @db.ObjectId
+  name           String
+  description    String
+  langCode       String
+  createdAt      String
+  updatedAt      String
+}
+
+model amenities_lang {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  lang_code   String
+  created_at  String
+  updated_at  String
+  amenities   amenities @relation(fields: [amenitiesId], references: [id])
+  boatType    boatType? @relation(fields: [boatTypeId], references: [id])
+  boatTypeId  String?   @db.ObjectId
+  amenitiesId String    @db.ObjectId
+}
+
+// model engineType {
+//   id                    String                  @id @default(auto()) @map("_id") @db.ObjectId
+//   oldId                 Int
+//   name                  String
+//   status                engineTypeStatus
+//   engineTypeTranslation engineTypeTranslation[]
+// }
+
+enum engineTypeStatus {
+  Active
+  Inactive
+}
+
+model engineTypeTranslation {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  engineType    engine_type @relation(fields: [engine_typeId], references: [id])
+  name          String
+  locale        String
+  engine_typeId String      @db.ObjectId
+}
+
+model voyarent {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+}
+
+model fuel_lang {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  fuel   fuel   @relation(fields: [fuelId], references: [id])
+  fuelId String @db.ObjectId
+}
+
+model engine_type {
+  id                    String                  @id @default(auto()) @map("_id") @db.ObjectId
+  oldId                 Int
+  name                  String
+  status                enginetypestatus
+  boats                 boats[]
+  engineTypeTranslation engineTypeTranslation[]
+}
+
+enum enginetypestatus {
+  Active
+  Inactive
+}
+
+model hull_material {
+  id                      String                    @id @default(auto()) @map("_id") @db.ObjectId
+  oldId                   Int
+  name                    String
+  status                  hullmaterialstatus
+  hullMaterialTranslation hullMaterialTranslation[]
+  boats                   boats[]
+}
+
+enum hullmaterialstatus {
+  Active
+  Inactive
+}
+
+model hullMaterialTranslation {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  hullMaterial    hull_material @relation(fields: [hull_materialId], references: [id])
+  hull_materialId String        @db.ObjectId
+  name            String
+  locale          String
+}
+
+model bookingadvisors {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  oldId        Int
+  location     String
+  trip_date    DateTime? @db.Date
+  start_period DateTime? @db.Date
+  end_period   DateTime? @db.Date
+  crew         Int?
+  passenger    Int?
+  min_price    Int?
+  max_price    Int?
+  duration     Int?
+  boat_type_id String?   @db.ObjectId
+  renter_id    String?   @db.ObjectId
+  comments     String
+  firstname    String
+  lastname     String
+  phone        String
+  email        String
+  created_at   DateTime?
+  updated_at   DateTime?
+  boat_type    boatType? @relation(fields: [boat_type_id], references: [id])
+  users        users?    @relation(fields: [renter_id], references: [id])
+  boats        boats[]
+}
+
+model boats {
+  id                           String              @id @default(auto()) @map("_id") @db.ObjectId
+  oldId                        Int
+  name                         String?
+  sub_name                     String?
+  summary                      String?
+  trip_start_time              String?
+  trip_finish_time             String?
+  booking_message              String?
+  boat_type                    boatType            @relation(fields: [boatTypeId], references: [id])
+  boat_category                boatCategory?       @relation(fields: [boatCategoryId], references: [id])
+  boat_make                    boatMake?           @relation(fields: [boatMakeId], references: [id])
+  boat_model                   boatModel?          @relation(fields: [boatModelId], references: [id])
+  refit_year                   Int?
+  extra_activities             String?
+  kitchens                     Int?
+  bathrooms                    Int?
+  wc                           Int?
+  bookingadvisor               bookingadvisors?    @relation(fields: [bookingadvisorsId], references: [id])
+  water_capacity               Int?
+  water_capacity_unit          String?
+  model_newtext                String?
+  fuel_type                    fuel?               @relation(fields: [fuelId], references: [id])
+  fuelCapacity                 String?
+  fuel_capacity_unit           String?
+  passengers_capacity          Int?
+  boat_year                    Int?
+  sleeps                       Int?
+  rooms                        Int?
+  horsepower                   String?
+  length                       Int?
+  length_unit                  String?
+  draft                        Int?
+  draft_unit                   String?
+  fuel_policy                  boat_fuel_policy?
+  fuel_consumption             String?
+  fuel_consumption_unit        String?
+  engine_type                  engine_type?        @relation(fields: [engine_typeId], references: [id])
+  engine_year                  String?
+  nof_engine                   String?
+  top_speed                    String?
+  hull_material                hull_material?      @relation(fields: [hull_materialId], references: [id])
+  amenities                    amenities[]         @relation(fields: [amenitiesIds], references: [id])
+  amenitiesIds                 String[]            @db.ObjectId
+  activities                   activities[]        @relation(fields: [activitiesIds], references: [id])
+  activitiesIds                String[]            @db.ObjectId
+  video                        String
+  calendar_type                boat_calendar_type?
+  booking_type                 boat_booking_type?
+  cancel_policy                boat_cancel_policy  @default(Flexible)
+  popular                      boat_popular        @default(No)
+  started                      boat_started        @default(No)
+  recommended                  boat_recommended    @default(No)
+  views_count                  Int
+  status                       boat_status?
+  copied                       boat_copied         @default(No)
+  booking_manager_yachtid      String
+  booking_manager_checkin_day  String
+  booking_manager_checkin_days String
+  booking_manager_extras       String
+  created_at                   DateTime?
+  updated_at                   DateTime?
+  deleted_at                   DateTime?
+  users                        users               @relation(fields: [usersId], references: [id])
+  boatTypeId                   String              @db.ObjectId
+  boatCategoryId               String?             @db.ObjectId
+  boatMakeId                   String?             @db.ObjectId
+  boatModelId                  String?             @db.ObjectId
+  bookingadvisorsId            String?             @db.ObjectId
+  fuelId                       String?             @db.ObjectId
+  engine_typeId                String?             @db.ObjectId
+  hull_materialId              String?             @db.ObjectId
+  usersId                      String              @db.ObjectId
+  // boatPhotos                   boatPhotos[]
+}
+
+enum boat_fuel_policy {
+  renter_pays
+  owner_pays
+  no_value
+  null
+}
+
+enum boat_calendar_type {
+  Always
+  Sometimes
+  Onetime
+}
+
+enum calender_type {
+  Active
+  Inactive
+}
+
+enum boat_booking_type {
+  instant_book
+  request_to_book
+}
+
+enum boat_cancel_policy {
+  Flexible
+  Strict
+  Too_Strict @map("Too Strict")
+  Moderate
+}
+
+enum boat_popular {
+  Yes
+  No
+}
+
+enum boat_status {
+  Unlisted
+  Listed
+}
+
+enum boat_started {
+  Yes
+  No
+}
+
+enum boat_recommended {
+  Yes
+  No
+}
+
+enum boat_copied {
+  Yes
+  No
 }
