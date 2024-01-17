@@ -26,20 +26,20 @@ export default function DestinationBlock() {
 
   const { state } = useTimeout();
 
-  useEffect(() => {
-    fetch('/api/destinations/destination-carousel')
-      .then((resp) => {
-        if (resp.ok) {
-          return resp.json()
-        } else {
-          console.log('something went wrong');
+  // useEffect(() => {
+  //   fetch('/api/destinations/destination-carousel')
+  //     .then((resp) => {
+  //       if (resp.ok) {
+  //         return resp.json()
+  //       } else {
+  //         console.log('something went wrong');
           
-        }
-      })
-      .then((resp) => {
-        setAllDestinations(resp.destinations)
-      })
-  }, [])
+  //       }
+  //     })
+  //     .then((resp) => {
+  //       setAllDestinations(resp.destinations)
+  //     })
+  // }, [])
 
   return (
     <Section

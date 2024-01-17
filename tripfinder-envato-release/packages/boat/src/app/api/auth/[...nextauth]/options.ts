@@ -57,19 +57,19 @@ export const authOptions: AuthOptions = {
 
             try {
 
-                const vendor = await prisma.vendor.findFirst({
-                    where: {
-                        name: user.name
-                    }
-                })
+                // const vendor = await prisma.vendor.findFirst({
+                //     where: {
+                //         name: user.name
+                //     }
+                // })
 
-                if (!vendor) {
-                    await prisma.vendor.create({
-                        data: {
-                            name: user.name
-                        }
-                    })
-                }
+                // if (!vendor) {
+                //     await prisma.vendor.create({
+                //         data: {
+                //             name: user.name
+                //         }
+                //     })
+                // }
 
                 return true
 
