@@ -408,7 +408,7 @@ model bookingadvisors {
 
 model boats {
   id                           String              @id @default(auto()) @map("_id") @db.ObjectId
-  oldId                        Int
+  oldId                        Int?
   name                         String?
   sub_name                     String?
   summary                      String?
@@ -466,8 +466,8 @@ model boats {
   booking_manager_checkin_day  String
   booking_manager_checkin_days String
   booking_manager_extras       String
-  created_at                   DateTime?
-  updated_at                   DateTime?
+  created_at                   DateTime            @default(now())
+  updated_at                   DateTime            @default(now())
   deleted_at                   DateTime?
   users                        users               @relation(fields: [usersId], references: [id])
   boatTypeId                   String              @db.ObjectId
