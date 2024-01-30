@@ -59,18 +59,27 @@ export default function FindTripForm() {
     >
       <div className="mb-3 sm:mb-0">
         <span className="mb-2 hidden font-satisfy text-xl leading-7 text-gray-dark sm:block 4xl:text-[28px] 4xl:leading-[44px]">
-          Enjoy your trip
+        Easier & safer than ever
         </span>
         <Text
           tag="h1"
           className="leading-12 mb-2 !text-xl !font-black uppercase text-gray-dark sm:!text-[28px] sm:!leading-9  4xl:!text-4xl 4xl:!leading-[52px]"
         >
-          Discover the <br className="hidden sm:block" />
-          new world
+          BOAT RENTALS &  <br className="hidden sm:block" />
+          YACHT CHARTER
         </Text>
+
+        <Text
+          tag="h4"
+          className="leading-12 mb-2 !text-xl !font-black lowercase text-gray-dark sm:!text-[28px] sm:!leading-9  3xl:!text-4xl 3xl:!leading-[52px]"
+        >
+          For any budget with a  <br className="hidden sm:block" />
+          lowest price guarantee
+        </Text>
+
         <Text className="mb-5 hidden leading-6 !text-secondary sm:block 3xl:leading-8 4xl:mb-6 4xl:text-lg">
-          Compare prices from 200+ booking sites to help you find the lowest
-          price on the right hotel for you.
+        From luxury yachts or sailing boats to small ships.
+More than 12,000 verified boats are available worldwide.
         </Text>
       </div>
       <SearchAutocomplete
@@ -130,7 +139,7 @@ export default function FindTripForm() {
         rounded="lg"
         size="xl"
       >
-        Submit
+        Search
       </Button>
     </form>
   );
