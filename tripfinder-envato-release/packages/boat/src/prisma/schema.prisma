@@ -71,6 +71,94 @@ enum amenitiesStatus {
   Inactive
 }
 
+model boatsPrice {
+  id                  String                  @id @default(auto()) @map("_id") @db.ObjectId
+  perDay              Int
+  crewStatus          boats_price_crew_status
+  captainFee          Int
+  marina              Int
+  cleaning            Int
+  additionalPassanger Int
+  passangers          Int
+  security            Int
+  weekend             Int
+  minimumDay          Int?
+  maximumDay          Int?
+  checkinFrom         String?
+  checkinTo           String?
+  checkout            String?
+  weatherCancel       Int
+  minPass             Int
+  maxPass             Int
+  odb                 Int?
+  currency            currency                @relation(fields: [currencyId], references: [id])
+  currencyId          String                  @db.ObjectId
+  boats               boats                   @relation(fields: [boatsId], references: [id])
+  boatsId             String                  @db.ObjectId
+}
+
+model boatAddr {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  addressLineOne String?
+  addressLineTwo String?
+  city           String?
+  state          String?
+  postalCode     String
+  lattitude      String
+  longitude      String
+  country        countries @relation(fields: [countriesId], references: [id])
+  countriesId    String    @db.ObjectId
+  boat           boats     @relation(fields: [boatsId], references: [id])
+  boatsId        String    @db.ObjectId
+}
+
+model countries {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  oldId     Int
+  shortName String
+  longName  String
+  iso3      String
+  numCode   String
+  phoneCode String
+  boatAddr  boatAddr[]
+}
+
+enum boats_price_crew_status {
+  without_crew
+  crew_only
+  with_or_without
+}
+
+model currency {
+  id              String                    @id @default(auto()) @map("_id") @db.ObjectId
+  oldId           Int
+  name            String
+  code            String
+  symbol          String
+  rate            String
+  status          currency_status
+  defaultCurrency currency_default_currency
+  paypalCurrency  currency_paypal_currency
+  boatsPrice      boatsPrice[]
+}
+
+enum currency_paypal_currency {
+  Yes
+  No
+}
+
+enum currency_default_currency {
+  ONE
+  ZERO
+  NOTHING
+}
+
+enum currency_status {
+  Active
+  Inactive
+}
+
 model amenities_type {
   id                  String                @id @default(auto()) @map("_id") @db.ObjectId
   description         String
@@ -480,6 +568,8 @@ model boats {
   hull_materialId              String?             @db.ObjectId
   usersId                      String              @db.ObjectId
   // boatPhotos                   boatPhotos[]
+  boatsPrice                   boatsPrice[]
+  boatAddr                     boatAddr[]
 }
 
 enum boat_fuel_policy {

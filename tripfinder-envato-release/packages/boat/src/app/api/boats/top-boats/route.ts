@@ -1,54 +1,66 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from '@/prisma/index'
-import { s3Client, listObjectsInDirectory, listImagesInDirectory } from '@/s3/index'
-import { BUCKET_NAME, BUCKET_REGION } from '@/config/s3'
+import { listImagesInDirectory } from '@/s3/index'
 
 export async function GET(req: NextRequest) {
 
-    try {
-        const topBoats = await prisma.boats.findMany({
-            take: 6,
-            where: {
-                oldId: {
-                    gt: 10226
-                }
-            }
-        })
+  try {
+    const topBoats = await prisma.boats.findMany({
+      take: 8,
+      where: {
+        oldId: {
+          gt: 10226
+        }
+      }
+    })
 
-        const boats: any[] = []
+    const boats: any[] = []
 
-        // for (let boat of topBoats) {
-        //     if (!boat.oldId) return
+    for (let boat of topBoats) {
+      if (!boat.oldId) return
 
-        //     boats.push({
-        //         ...boat,
-        //         imagesUrls: [await listImagesInDirectory(boat.oldId.toString())]
-        //     })
+      const boatPrice = await prisma.boatsPrice.findFirst(({
+        where: {
+          boatsId: boat.id
+        }
+      }))
 
-        // }
+      const boatUser = await prisma.users.findFirst({
+        where: { id: boat.usersId }
+      })
 
-        // Promise.all(topBoats.map(async (boat) => {
+      const boatLocation = await prisma.boatAddr.findFirst({
+        where: { boatsId: boat.id }
+      })
 
-        //     console.log(boats);
+      console.log(boatLocation)
 
-        // }))
+      boats.push({
+        ...boat,
+        location: boatLocation,
+        user: boatUser?.id ? boatUser.id : '',
+        price: boatPrice?.perDay ? boatPrice.perDay : 10,
+        imagesUrls: await listImagesInDirectory(boat.oldId.toString())
+      })
 
-        return new NextResponse(JSON.stringify({
-            message: 'success',
-            data: {
-                boats
-            }
-        }))
-
-    } catch (error) {
-        console.log(error);
-
-        const errorResp = new NextResponse(JSON.stringify({
-            message: 'error',
-            error: error
-        }), {
-            status: 400
-        })
-        return errorResp
     }
+
+    return new NextResponse(JSON.stringify({
+      message: 'success',
+      data: {
+        boats
+      }
+    }))
+
+  } catch (error) {
+    console.log(error);
+
+    const errorResp = new NextResponse(JSON.stringify({
+      message: 'error',
+      error: error
+    }), {
+      status: 400
+    })
+    return errorResp
+  }
 }
