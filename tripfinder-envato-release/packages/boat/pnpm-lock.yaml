@@ -65,6 +65,9 @@ dependencies:
   rc-rate:
     specifier: ^2.10.0
     version: 2.12.0(react-dom@18.2.0)(react@18.2.0)
+  rc-slider:
+    specifier: ^10.5.0
+    version: 10.5.0(react-dom@18.2.0)(react@18.2.0)
   rc-table:
     specifier: ^7.30.3
     version: 7.36.0(react-dom@18.2.0)(react@18.2.0)
@@ -2479,6 +2482,20 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       resize-observer-polyfill: 1.5.1
+    dev: false
+
+  /rc-slider@10.5.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-xiYght50cvoODZYI43v3Ylsqiw14+D7ELsgzR40boDZaya1HFa1Etnv9MDkQE8X/UrXAffwv2AcNAhslgYuDTw==}
+    engines: {node: '>=8.x'}
+    peerDependencies:
+      react: '>=16.9.0'
+      react-dom: '>=16.9.0'
+    dependencies:
+      '@babel/runtime': 7.23.5
+      classnames: 2.3.2
+      rc-util: 5.38.1(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /rc-table@7.36.0(react-dom@18.2.0)(react@18.2.0):
