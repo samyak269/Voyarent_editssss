@@ -1,13 +1,21 @@
 'use client';
 
-import { destinations } from 'public/data/destinations';
 import { useTimeout } from '@/hooks/use-timeout';
 import DestinationCarousel from '@/components/home/destination-block/destination-carousel';
 import BlockLoader from '@/components/ui/loader/block-loader';
 import Section from '@/components/ui/section';
-import { useEffect, useState } from 'react';
-
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query'
 export default function DestinationBlock() {
+
+  const { data: countries, isError, isPending, error } = useQuery({
+    queryKey: ['countries'],
+    queryFn: async () => {
+      const response = await fetch('/api/destinations/destination-carousel')
+      const countries = await response.json()
+      return countries.destinations
+    }
+  })
 
   const [allDestinations, setAllDestinations] = useState<
     {
@@ -33,7 +41,7 @@ export default function DestinationBlock() {
   //         return resp.json()
   //       } else {
   //         console.log('something went wrong');
-          
+
   //       }
   //     })
   //     .then((resp) => {
