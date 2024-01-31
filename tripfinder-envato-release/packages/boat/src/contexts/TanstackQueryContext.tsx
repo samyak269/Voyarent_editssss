@@ -11,7 +11,9 @@ const TanstackQueryContext = ({ children }: { children: React.ReactNode }) => {
   return (
     <QueryClientProvider client={queryClient}>
       {children}
-      <ReactQueryDevtools />
+      <div>
+        <ReactQueryDevtools />
+      </div>
     </QueryClientProvider>
   )
 }
