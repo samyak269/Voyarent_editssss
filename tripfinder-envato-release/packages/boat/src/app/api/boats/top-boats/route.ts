@@ -40,7 +40,8 @@ export async function GET(req: NextRequest) {
         location: boatLocation,
         user: boatUser?.id ? boatUser.id : '',
         price: boatPrice?.perDay ? boatPrice.perDay : 10,
-        imagesUrls: await listImagesInDirectory(boat.oldId.toString())
+        // @ts-ignore
+        imagesUrls: (await listImagesInDirectory(boat.oldId.toString())).slice(0, 6)
       })
 
     }

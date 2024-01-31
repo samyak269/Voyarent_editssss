@@ -5,6 +5,7 @@ import '@/styles/globals.css';
 import GalleryCarouselView from '@/components/gallery/view';
 import DrawerContainer from '@/components/drawers/view';
 import ModalContainer from '@/components/modals/view';
+import TanstackQueryContext from '@/contexts/TanstackQueryContext'
 
 const lato = Lato({
   subsets: ['latin'],
@@ -36,12 +37,14 @@ export default function RootLayout({ children }: React.PropsWithChildren<{}>) {
       )}
     >
       <head />
-      <body className="flex min-h-full flex-col">
-        {children}
-        <ModalContainer />
-        <DrawerContainer />
-        <GalleryCarouselView />
-      </body>
+      <TanstackQueryContext>
+        <body className="flex min-h-full flex-col">
+          {children}
+          <ModalContainer />
+          <DrawerContainer />
+          <GalleryCarouselView />
+        </body>
+      </TanstackQueryContext>
     </html>
   );
 }

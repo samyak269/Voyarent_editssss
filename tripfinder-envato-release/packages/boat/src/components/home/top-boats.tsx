@@ -6,69 +6,26 @@ import ListingCardLoader from '@/components/ui/loader/listing-card-loader';
 import ListingCard from '@/components/ui/cards/listing';
 import SeeMore from '@/components/ui/see-more';
 import Section from '@/components/ui/section';
-import { useEffect, useState } from 'react';
-
-// (alias) const topBoats: {
-//     thumbnail: string[];
-//     time: string;
-//     caption: string;
-//     title: string;
-//     slug: string;
-//     location: string;
-//     price: string;
-//     rating: number;
-//     ratingCount: string;
-//     user: {
-//         name: string;
-//         avatar: string;
-//         slug: string;
-//     };
-// }[]
-
-function BoatGrid() {
-  return (
-    <div className="grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:gap-y-10">
-      {topBoats.slice(0, 8).map((item, index) => (
-        <ListingCard
-          key={`top-boat-grid-${index}`} //id
-          id={`top-boat-grid-${index}`} //id
-          slides={item.thumbnail} //images
-          time={item.time} // not sure
-          caption={item.caption} //model_newtext
-          title={item.title} //name
-          slug={item.slug} //id
-          location={item.location} // not sure
-          price={item.price}  // boat price
-          ratingCount={item.ratingCount} // not sure
-          rating={item.rating} // not sure
-          user={item.user} // boat owner may be
-        />
-      ))}
-    </div>
-  );
-}
+import { useQuery } from '@tanstack/react-query'
 
 export default function TopBoats() {
-  const { state } = useTimeout();
 
-  const [topBoats, setTopBoats] = useState(null)
+  const { isPending, isError, data: query, error } = useQuery({
+    queryKey: ['top-boats'],
+    queryFn: async () => {
+      const boatInfoResp = await fetch('/api/boats/top-boats')
+      const boatInfo = await boatInfoResp.json()
+      return boatInfo.data.boats
+    }
+  })
 
-  useEffect(() => {
+  const { state } = useTimeout()
 
-    fetch('/api/boats/top-boats')
-      .then((resp) => {
-        if (resp.ok) {
-          return resp.json()
-        }
-      })
-      .then((resp) => {
-        console.log(resp);
-        setTopBoats(resp.data.boats)
-      })
+  if (isPending) return <h1>Loading...</h1>
+  if (isError) return <h1>Something went wrong...</h1>
+  console.log(query);
 
-  }, [])
-
-  return (
+  if (query) return (
     <Section
       className="group/section container-fluid mt-12 overflow-hidden lg:mt-16"
       title="Top boat rentals"
@@ -77,7 +34,27 @@ export default function TopBoats() {
       rightElement={<SeeMore />}
     >
       {!state && <ListingCardLoader />}
-      {state && <BoatGrid />}
+      {state && <div className="grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:gap-y-10">
+        {query.map((item: any, index: number) => (
+          < ListingCard
+            key={`top-boat-grid-${index}`} //id
+            id={`top-boat-grid-${index}`} //id
+            slides={item.imagesUrls} //images
+            time={''} // not sure
+            caption={item.model_newtext} //model_newtext
+            title={item.name} //name
+            slug={item.id} //id
+            location={item.location.state} // not sure
+            price={ '$' + item.price}  // boat price
+            ratingCount={'not sure rating'} // not sure
+            rating={3} // not sure
+            user={'sid the greate warrior'} // boat owner may be
+          />
+        ))}
+      </div>
+      }
     </Section>
   );
+
+  return <h1>weird</h1>
 }

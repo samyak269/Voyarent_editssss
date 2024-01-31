@@ -51,7 +51,7 @@ export default function ListingCard({
                   prevEl: `.${id}-listing-item-button-prev`,
                 }}
               >
-                {slides?.map((slide, index) => (
+                {slides.map((slide, index) => (
                   <SwiperSlide key={`slide-${index}`}>
                     <Image
                       className="aspect-[34/25] bg-gray-lighter"

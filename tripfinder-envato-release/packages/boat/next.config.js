@@ -5,7 +5,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ['randomuser.me'],
+    domains: ['randomuser.me', 'voyarentboats.s3.eu-central-1.amazonaws.com'],
   },
 };
 
