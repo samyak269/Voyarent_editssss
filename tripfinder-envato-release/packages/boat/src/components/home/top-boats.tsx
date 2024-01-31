@@ -1,7 +1,5 @@
 'use client';
 
-import { topBoats } from 'public/data/top-boats';
-import { useTimeout } from '@/hooks/use-timeout';
 import ListingCardLoader from '@/components/ui/loader/listing-card-loader';
 import ListingCard from '@/components/ui/cards/listing';
 import SeeMore from '@/components/ui/see-more';
@@ -10,7 +8,7 @@ import { useQuery } from '@tanstack/react-query'
 
 export default function TopBoats() {
 
-  const { isPending, isError, data: query, error } = useQuery({
+  const { isPending, isError, data: query } = useQuery({
     queryKey: ['top-boats'],
     queryFn: async () => {
       const boatInfoResp = await fetch('/api/boats/top-boats')
@@ -19,13 +17,10 @@ export default function TopBoats() {
     }
   })
 
-  const { state } = useTimeout()
-
   if (isPending) return <h1>Loading...</h1>
   if (isError) return <h1>Something went wrong...</h1>
-  console.log(query);
 
-  if (query) return (
+  return (
     <Section
       className="group/section container-fluid mt-12 overflow-hidden lg:mt-16"
       title="Top boat rentals"
@@ -33,8 +28,8 @@ export default function TopBoats() {
       headerClassName="items-end mb-4 md:mb-5 xl:mb-6 gap-5"
       rightElement={<SeeMore />}
     >
-      {!state && <ListingCardLoader />}
-      {state && <div className="grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:gap-y-10">
+      {!query && <ListingCardLoader />}
+      {query && <div className="grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:gap-y-10">
         {query.map((item: any, index: number) => (
           < ListingCard
             key={`top-boat-grid-${index}`} //id
@@ -45,7 +40,7 @@ export default function TopBoats() {
             title={item.name} //name
             slug={item.id} //id
             location={item.location.state} // not sure
-            price={ '$' + item.price}  // boat price
+            price={'$' + item.price}  // boat price
             ratingCount={'not sure rating'} // not sure
             rating={3} // not sure
             user={'sid the greate warrior'} // boat owner may be
@@ -54,7 +49,5 @@ export default function TopBoats() {
       </div>
       }
     </Section>
-  );
-
-  return <h1>weird</h1>
+  )
 }

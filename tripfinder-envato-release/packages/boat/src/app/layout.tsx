@@ -44,7 +44,7 @@ export default function RootLayout({ children }: React.PropsWithChildren<{}>) {
           <DrawerContainer />
           <GalleryCarouselView />
         </body>
-      </TanstackQueryContext>
-    </html>
+      </ TanstackQueryContext>
+    </html >
   );
 }

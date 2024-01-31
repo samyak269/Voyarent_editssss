@@ -7,6 +7,7 @@ import ListingCard from '@/components/ui/cards/listing';
 import SeeMore from '@/components/ui/see-more';
 import Section from '@/components/ui/section';
 
+
 function NewBoatsGrid() {
   return (
     <div className="grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:gap-y-10">
@@ -32,6 +33,17 @@ function NewBoatsGrid() {
 
 export default function NewBoats() {
   const { state } = useTimeout();
+
+  // const { data: boats, isPending, isError, error } = useQuery({
+  //  queryKey: ['new-boats'],
+  //  queryFn: async () => {
+
+  // const response = await fetch('/api/boats/new-boats')
+  // const data = await response.json()
+  // return data.data
+
+  // }
+  // })
 
   return (
     <Section
